@@ -1,31 +1,24 @@
-import re
-
-
 #Parse function
 def logParse():
 
-    validloglevel = []
-    invalidloglevel =[]
+    valid_levels = ['INFO', 'WARNING', 'ERROR'] #Added to reduce IF statements
+    valid = [] #reduces confusion in renaming
+    invalid =[] 
     try:
-        logfile = open("../logsamples/app.log", "r")
-        for line in logfile:
-            line = line.split()
-            if line[2] == 'INFO':
-                validloglevel.append(line)
-            elif line[2] == 'WARNING':
-                validloglevel.append(line)
-            elif line[2] == "ERROR":
-                validloglevel.append(line)
-            else:
-                invalidloglevel.append(line)
-        for log in validloglevel:
-            join = ''.join(log[3:])
-            log = log[:3]
-            log.append(join)
-            print(log)
+        with open ("../logsamples/app.log", "r") as logfile:
+            for line in logfile:
+                line = line.split()
+                if len(line) < 4: #Added incase structuring is different between log messages
+                    invalid.append(line)
+                    continue
+                level = line[2]
+                message = " ".join(line[3:])
+
+                log_entry = line[:3] + [message]
+                if level in valid_levels:
+                    valid.append(log_entry)
+                else:
+                    invalid.append(log_entry)
     except FileNotFoundError:
         print("File cannot be found")
-
-        return validloglevel
-
-logParse()
+    return valid, invalid
