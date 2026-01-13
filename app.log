@@ -1,0 +1,12 @@
+2026-01-10 09:00:01 INFO Application started
+2026-01-10 09:02:15 INFO Scheduled job completed
+2026-01-10 09:05:44 ERROR Unexpected null reference
+2026-01-10 09:05:45 ERROR Unexpected null reference
+2026-01-10 09:05:46 ERROR Unexpected null reference
+2026-01-10 09:05:47 ERROR Unexpected null reference
+2026-01-10 09:05:48 ERROR Unexpected null reference
+2026-01-10 09:05:49 ERROR Unexpected null reference
+2026-01-10 09:10:00 WARNING High memory usage detected
+2026-01-10 09:15:22 INFO Application shutdown initiated
+BROKEN LOG LINE
+2026-01-10 09:20:00 INFO Application restarted

@@ -1,0 +1,15 @@
+2026-01-10 08:01:12 INFO User alice logged in successfully
+2026-01-10 08:03:44 INFO User bob logged in successfully
+2026-01-10 08:05:01 WARNING Failed login attempt for user admin
+2026-01-10 08:05:12 WARNING Failed login attempt for user admin
+2026-01-10 08:05:25 WARNING Failed login attempt for user admin
+2026-01-10 08:05:40 WARNING Failed login attempt for user admin
+2026-01-10 08:05:58 WARNING Failed login attempt for user admin
+2026-01-10 08:06:05 ERROR Account locked due to repeated failures from 192.168.1.10
+2026-01-10 08:10:33 INFO User charlie logged out
+2026-01-10 08:15:21 INFO User alice logged out
+MALFORMED ENTRY WITHOUT TIMESTAMP
+2026-01-10 INFO Missing time field
+2026-01-10 08:22:91 ERROR Invalid timestamp seconds
+2026-01-10 08:30:00 INFO User david logged in successfully
+2026-01-10 08:45:11 ERROR Database connection timeout
