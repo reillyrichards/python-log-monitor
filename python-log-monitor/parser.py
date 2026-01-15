@@ -5,7 +5,7 @@ def logParse():
     valid = [] #reduces confusion in renaming
     invalid =[] 
     try:
-        with open ("../logsamples/app.log", "r") as logfile:
+        with open ("../logsamples/auth.log", "r") as logfile:
             for line in logfile:
                 line = line.split()
                 if len(line) < 4: #Added incase structuring is different between log messages
