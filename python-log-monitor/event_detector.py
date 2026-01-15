@@ -1,25 +1,40 @@
+import ipaddress
+from collections import defaultdict
 from parser import logParse
 
-#Logs any interesting events in the valid log files
 
 def logdetection():
-    valid, invalid = logParse()
-    valid_ip_endings = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    valid_logs, invalid_logs = logParse()
 
-    suspicious_IP = []
-    system_instability_flags = ["timeout", "fail", "crash", "unusable", "disconnect"]
-    system_instability = []
+    # Results
+    suspicious_ip_counts = defaultdict(int)
+    system_instability_events = []
 
-    for line in valid:
-        message = line[3].split()
+    # Detection rules
+    instability_keywords = {"timeout", "fail", "crash", "unusable", "disconnect"}
 
-        if line[2] == "ERROR" and message[-1][0] in valid_ip_endings:
-            suspicious_IP.append(message[-1])
-        
-        for word in message:
-            if word in system_instability_flags:
-                system_instability.append(message)
-    
-    return suspicious_IP, system_instability
+    for entry in valid_logs:
+        level = entry[2]
+        message = entry[3]
+        words = message.split()
 
-logdetection()
+        # ---- Suspicious IP detection (ERROR + valid IP) ----
+        if level == "ERROR" and words:
+            candidate = words[-1]
+            try:
+                ip = ipaddress.ip_address(candidate)
+                suspicious_ip_counts[str(ip)] += 1
+            except ValueError:
+                pass  # last token wasn't a valid IP
+
+        # ---- System instability detection (case-insensitive) ----
+        lowered_words = {word.lower() for word in words}
+        if lowered_words & instability_keywords:
+            system_instability_events.append(message)
+
+    return dict(suspicious_ip_counts), system_instability_events
+
+
+suspicious_ips, instability_events = logdetection()
+print("Suspicious IPs:", suspicious_ips)
+print("System instability events:", instability_events)
